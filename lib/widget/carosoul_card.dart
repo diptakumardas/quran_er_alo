@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-class CarsoulCard extends StatefulWidget {
-  const CarsoulCard({super.key});
+class CarouselCard extends StatefulWidget {
+  const CarouselCard({super.key});
 
   @override
-  State<CarsoulCard> createState() => _CarsoulCardState();
+  State<CarouselCard> createState() => _CarouselCardState();
 }
 
-class _CarsoulCardState extends State<CarsoulCard> {
+class _CarouselCardState extends State<CarouselCard> {
   @override
   Widget build(BuildContext context) {
     return Stack(
