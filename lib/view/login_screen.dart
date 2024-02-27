@@ -86,6 +86,7 @@ class _LogInScreenState extends State<LogInScreen> {
                Center(
                   child: CustomButton(name: "LOGIN",onClicked: (){
                     login(_emailcontroller.text, _passwordcontroller.text);
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
 
                   },)
               ),

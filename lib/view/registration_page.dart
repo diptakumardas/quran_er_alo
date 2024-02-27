@@ -13,14 +13,12 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  void signUp(String username,password){
-    NetworkManager().signUp(SignUpRequest(email: username,password: password));
+  void signUp(String username, password) {
+    NetworkManager().signUp(SignUpRequest(email: username, password: password));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -51,33 +49,55 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ],
                 ),
               ),
-              CustomeTextField(title: "First Name", hintText: "First Name", onChanged: () {},),
-
+              CustomeTextField(
+                title: "First Name",
+                hintText: "First Name",
+                onChanged: () {},
+              ),
               SizedBox(
                 height: 8,
               ),
-              CustomeTextField(title: "Last Name", hintText: "Last Name", onChanged: () {},),
-
+              CustomeTextField(
+                title: "Last Name",
+                hintText: "Last Name",
+                onChanged: () {},
+              ),
               const SizedBox(
                 height: 8,
               ),
-              CustomeTextField(title: "User Name", hintText: "User Name", onChanged: () {},),
+              CustomeTextField(
+                title: "User Name",
+                hintText: "User Name",
+                onChanged: () {},
+              ),
               const SizedBox(
                 height: 8,
               ),
-              CustomeTextField(title: "Email", hintText: "Email", onChanged: (text) {
-                emailController.text = text;
-              },),
+              CustomeTextField(
+                title: "Email",
+                hintText: "Email",
+                onChanged: (text) {
+                  emailController.text = text;
+                },
+              ),
               const SizedBox(
                 height: 8,
               ),
-              CustomeTextField(title: "Password", hintText: "Password", onChanged: (text) {
-                passwordController.text = text;
-              },),
+              CustomeTextField(
+                title: "Password",
+                hintText: "Password",
+                onChanged: (text) {
+                  passwordController.text = text;
+                },
+              ),
               const SizedBox(
                 height: 8,
               ),
-              CustomeTextField(title: "Confirm Password", hintText: "Confirm Password", onChanged: () {},),
+              CustomeTextField(
+                title: "Confirm Password",
+                hintText: "Confirm Password",
+                onChanged: () {},
+              ),
               const SizedBox(
                 height: 8,
               ),
@@ -85,112 +105,116 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 20,
               ),
               Center(
-                  child: CustomButton(name: "REGISTER",onClicked: (){
-                    signUp(emailController.text, passwordController.text);
-                  },)
+                  child: CustomButton(
+                name: "REGISTER",
+                onClicked: () {
+                  signUp(emailController.text, passwordController.text);
+                },
+              )),
+              const SizedBox(
+                height: 30,
               ),
-            const SizedBox(
-              height: 30,
-            ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const Text(
+                  "Already have an account?",
+                  style: TextStyle(fontSize: 20, color: Colors.grey),
+                ),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LogInScreen()));
+                    },
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(fontSize: 20, color: Colors.blueAccent),
+                    )),
+              ]),
+              const SizedBox(
+                height: 10,
+              ),
+              const Row(
                 children: [
-                  const Text(
-                    "Already have an account?",
-                    style: TextStyle(fontSize: 20, color: Colors.grey),
+                  Expanded(
+                      child: Divider(
+                    thickness: 0.5,
+                    color: Colors.grey,
+                  )),
+                  Text(
+                    ' or ',
+                    style: TextStyle(fontSize: 18),
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>LogInScreen()));
-                      },
-                      child: const Text(
-                        "Login",
-                        style:
-                        TextStyle(fontSize: 20, color: Colors.blueAccent),
-                      )),
-
-                  ]),
-
-
-                  const SizedBox(
-                    height: 10,
+                  Expanded(
+                    child: Divider(
+                      thickness: 0.5,
+                      color: Colors.grey,
+                    ),
                   ),
-                  const Row(
-                    children: [
-                      Expanded(
-                          child: Divider(
-                            thickness: 0.5,
-                            color: Colors.grey,
-                          )),
-                      Text(' or ',style: TextStyle(fontSize: 18),),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey,
-                        ),
+                ],
+              ),
+              Container(
+                height: 60,
+                width: 500,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Color.fromRGBO(235, 241, 255, 1),
+                ),
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Image.asset(
+                        'images/google_logo.png',
+                        height: 40,
                       ),
-                    ],
-                  ),
-
-
-                  Container(
-                    height: 60,
-                    width: 500,
-
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color.fromRGBO(235, 241, 255, 1),
                     ),
-                    child: Row(
-                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Image.asset('images/google_logo.png',height: 40,),
-                        ),
-                        const SizedBox(
-                          width: 60,
-                        ),
-                        const Text("Continue with Google",style: TextStyle(fontSize: 18,color: Colors.grey),)
-                      ],
+                    const SizedBox(
+                      width: 60,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    height: 60,
-                    width: 500,
-
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color.fromRGBO(235, 241, 255, 1),
+                    const Text(
+                      "Continue with Google",
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 60,
+                width: 500,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Color.fromRGBO(235, 241, 255, 1),
+                ),
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Image.asset(
+                        'images/apple_logo.png',
+                        height: 40,
+                      ),
                     ),
-                    child: Row(
-                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Image.asset('images/apple_logo.png',height: 40,),
-                        ),
-                        SizedBox(
-                          width: 60,
-                        ),
-                        Text("Continue with Apple",style: TextStyle(fontSize: 18,color: Colors.grey),)
-                      ],
+                    SizedBox(
+                      width: 60,
                     ),
-                  ),
-                  SizedBox(height: 40,),
-
-
-
-
-
-
-
-                ])),
+                    Text(
+                      "Continue with Apple",
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+            ])),
       ),
     );
   }
-
 }
