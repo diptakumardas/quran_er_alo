@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:quran_er_alo/network/request_model/login_request.dart';
 import 'package:quran_er_alo/view/forgot_password/forgot_password.dart';
+import 'package:quran_er_alo/view/home_page.dart';
 import 'package:quran_er_alo/view/registration_page.dart';
 import 'package:quran_er_alo/widget/button.dart';
 import 'package:quran_er_alo/widget/text_field.dart';
+import 'package:http/http.dart' as http;
+
+import '../network/network_managerr.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -16,6 +21,12 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
+
+  void login(String username,password){
+    NetworkManager().logIn(LoginRequest(email: username,password: password));
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,12 +56,17 @@ class _LogInScreenState extends State<LogInScreen> {
                   ],
                 ),
               ),
-              CustomeTextField(title: 'Email', hintText: "Email",controller: TextEditingController(),),
+              CustomeTextField(title: 'Email', hintText: "Email", onChanged: (text) {
+                _emailcontroller.text = text;
+
+              },),
 
                const SizedBox(
                 height: 8,
               ),
-              CustomeTextField(title: "Password", hintText: "Password", controller: TextEditingController()),
+              CustomeTextField(title: "Password", hintText: "Password", onChanged: (text) {
+                _passwordcontroller.text = text;
+              }, ),
                SizedBox(
                 height: 8,
               ),
@@ -67,8 +83,11 @@ class _LogInScreenState extends State<LogInScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const Center(
-                  child: CustomButton(name: "LOGIN")
+               Center(
+                  child: CustomButton(name: "LOGIN",onClicked: (){
+                    login(_emailcontroller.text, _passwordcontroller.text);
+
+                  },)
               ),
               const SizedBox(
                 height: 30,
@@ -167,4 +186,25 @@ class _LogInScreenState extends State<LogInScreen> {
       ),
     );
   }
+
+
+
+  /*uture<void> loginUser(BuildContext context)async{
+    final String email = _emailcontroller.text;
+    final String password= _passwordcontroller.text;
+
+    final String apiUrl = "https://quraneralo.techanalyticaltd.com/auth/login";
+    final response = await http.post(Uri.parse(apiUrl),
+      body: {
+        'email': email,
+        'password': password,
+      },
+    );
+    */
+
+
+
+
 }
+
+

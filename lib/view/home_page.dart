@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quran_er_alo/network/network_managerr.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../widget/carosoul_card.dart';
@@ -17,6 +18,10 @@ class _HomePageState extends State<HomePage> {
   int activeIndex = 0;
   @override
   Widget build(BuildContext context) {
+
+    NetworkManager().carouselContent();
+    NetworkManager().courseContent();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quran_er_alo/network/network_managerr.dart';
+import 'package:quran_er_alo/network/request_model/signup_request_model.dart';
 import 'package:quran_er_alo/view/login_screen.dart';
 import 'package:quran_er_alo/widget/button.dart';
 import 'package:quran_er_alo/widget/text_field.dart';
@@ -11,6 +13,15 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void signUp(String username,password){
+    NetworkManager().signUp(SignUpRequest(email: username,password: password));
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,29 +51,33 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ],
                 ),
               ),
-              CustomeTextField(title: "First Name", hintText: "First Name", controller: TextEditingController()),
+              CustomeTextField(title: "First Name", hintText: "First Name", onChanged: () {},),
 
               SizedBox(
                 height: 8,
               ),
-              CustomeTextField(title: "Last Name", hintText: "Last Name", controller: TextEditingController()),
+              CustomeTextField(title: "Last Name", hintText: "Last Name", onChanged: () {},),
 
               const SizedBox(
                 height: 8,
               ),
-              CustomeTextField(title: "User Name", hintText: "User Name", controller: TextEditingController()),
+              CustomeTextField(title: "User Name", hintText: "User Name", onChanged: () {},),
               const SizedBox(
                 height: 8,
               ),
-              CustomeTextField(title: "Email", hintText: "Email", controller: TextEditingController()),
+              CustomeTextField(title: "Email", hintText: "Email", onChanged: (text) {
+                emailController.text = text;
+              },),
               const SizedBox(
                 height: 8,
               ),
-              CustomeTextField(title: "Password", hintText: "Password", controller: TextEditingController()),
+              CustomeTextField(title: "Password", hintText: "Password", onChanged: (text) {
+                passwordController.text = text;
+              },),
               const SizedBox(
                 height: 8,
               ),
-              CustomeTextField(title: "Confirm Password", hintText: "Confirm Password", controller: TextEditingController()),
+              CustomeTextField(title: "Confirm Password", hintText: "Confirm Password", onChanged: () {},),
               const SizedBox(
                 height: 8,
               ),
@@ -70,7 +85,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 20,
               ),
               Center(
-                  child: CustomButton(name: "REGISTER")
+                  child: CustomButton(name: "REGISTER",onClicked: (){
+                    signUp(emailController.text, passwordController.text);
+                  },)
               ),
             const SizedBox(
               height: 30,
@@ -175,4 +192,5 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
     );
   }
+
 }

@@ -41,14 +41,13 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
               CustomeTextField(
                   title: "Password",
                   hintText: "Password",
-                  controller: TextEditingController()),
+                  onChanged: () {},),
               const SizedBox(
                 height: 10,
               ),
               CustomeTextField(
                   title: "Confirm Password",
-                  hintText: "Confirm Password",
-                  controller: TextEditingController()),
+                  hintText: "Confirm Password", onChanged: () {},),
               const SizedBox(
                 height: 50,
               ),
