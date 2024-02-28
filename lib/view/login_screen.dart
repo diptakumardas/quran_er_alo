@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:quran_er_alo/network/request_model/login_request.dart';
 import 'package:quran_er_alo/network/response_model/login_response.dart';
 import 'package:quran_er_alo/view/forgot_password/forgot_password.dart';
@@ -33,7 +34,6 @@ class _LogInScreenState extends State<LogInScreen> {
         .logIn(LoginRequest(email: username, password: password))
         .then((value) {
       if (value.encoded != null && value.encoded!.isError != null && value.encoded!.isError!) {
-        // Handle error
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(value.encoded!.error?.errMsg ?? 'An error occurred'),
@@ -54,8 +54,7 @@ class _LogInScreenState extends State<LogInScreen> {
         );
       }
     }).catchError((error) {
-      // Error during login
-      //print('Error during login: $error');
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Login Failed'),
@@ -63,6 +62,8 @@ class _LogInScreenState extends State<LogInScreen> {
         ),
       );
     });
+
+
   }
 
 

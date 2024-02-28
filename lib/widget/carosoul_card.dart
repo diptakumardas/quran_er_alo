@@ -128,13 +128,7 @@ class _CarouselCardState extends State<CarouselCard> {
                       aspectRatio: 2.3,
                       autoPlay: true)),
               const SizedBox(height: 20),
-              Center(
-                child: SmoothPageIndicator(
-                  controller: pageController,
-                  count: corouselData!.length,
 
-                ),
-              )
             ],
           );
         }
