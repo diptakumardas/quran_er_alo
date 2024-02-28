@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quran_er_alo/network/network_managerr.dart';
 import 'package:quran_er_alo/network/request_model/signup_request_model.dart';
+import 'package:quran_er_alo/view/home_page.dart';
 import 'package:quran_er_alo/view/login_screen.dart';
 import 'package:quran_er_alo/widget/button.dart';
 import 'package:quran_er_alo/widget/text_field.dart';
@@ -15,6 +16,57 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+
+  Future<void> signup(String username, String password) async {
+
+    if (username.isEmpty || password.isEmpty) {
+      // Show Snackbar for empty fields
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Email and password cannot be empty.'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+
+
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      SignUpRequest request =
+          SignUpRequest(email: username, password: password);
+      await NetworkManager().signUp(request);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Registration complete!'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      // Handle success, navigate to the next screen or perform other actions.
+      // You can replace the below line with your desired navigation logic.
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LogInScreen()));
+    } catch (error) {
+      // Handle error, show an error message or perform other actions.
+      //print('Error during registration: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Registration failed. Please try again.'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   void signUp(String username, password) {
     NetworkManager().signUp(SignUpRequest(email: username, password: password));
@@ -52,51 +104,57 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               CustomeTextField(
                 title: "First Name",
                 hintText: "First Name",
-                onChanged: () {},
+                obscureText: false,
+                onChanged: () {},errorMessage:  ""
               ),
               SizedBox(
                 height: 8,
               ),
               CustomeTextField(
+                obscureText: false,
                 title: "Last Name",
                 hintText: "Last Name",
-                onChanged: () {},
+                onChanged: () {},errorMessage:  ""
               ),
               const SizedBox(
                 height: 8,
               ),
               CustomeTextField(
+                obscureText: false,
                 title: "User Name",
                 hintText: "User Name",
-                onChanged: () {},
+                onChanged: () {},errorMessage:  ""
               ),
               const SizedBox(
                 height: 8,
               ),
               CustomeTextField(
+                obscureText: false,
                 title: "Email",
                 hintText: "Email",
                 onChanged: (text) {
                   emailController.text = text;
-                },
+                },errorMessage:  ""
               ),
               const SizedBox(
                 height: 8,
               ),
               CustomeTextField(
+                obscureText: true,
                 title: "Password",
                 hintText: "Password",
                 onChanged: (text) {
                   passwordController.text = text;
-                },
+                },errorMessage:  ""
               ),
               const SizedBox(
                 height: 8,
               ),
               CustomeTextField(
+                obscureText: true,
                 title: "Confirm Password",
                 hintText: "Confirm Password",
-                onChanged: () {},
+                onChanged: () {},errorMessage:  ""
               ),
               const SizedBox(
                 height: 8,
@@ -105,12 +163,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 20,
               ),
               Center(
-                  child: CustomButton(
-                name: "REGISTER",
-                onClicked: () {
-                  signUp(emailController.text, passwordController.text);
-                },
-              )),
+                  child: isLoading
+                      ? CircularProgressIndicator() // Loading indicator
+                      : CustomButton(
+                          name: "REGISTER",
+                          onClicked: () {
+                            signup(
+                                emailController.text, passwordController.text);
+                          },
+                        )),
               const SizedBox(
                 height: 30,
               ),

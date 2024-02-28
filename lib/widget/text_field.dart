@@ -1,8 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 class CustomeTextField extends StatefulWidget {
-  const CustomeTextField({super.key,required this.title,required this.hintText, required this.onChanged});
-     final String title, hintText;
+  const CustomeTextField({super.key,required this.title,required this.hintText, required this.onChanged, required this.obscureText, required this.errorMessage});
+     final String title, hintText, errorMessage;
      final Function onChanged;
+     final bool obscureText;
 
   @override
   State<CustomeTextField> createState() => _CustomeTextFieldState();
@@ -23,7 +26,13 @@ class _CustomeTextFieldState extends State<CustomeTextField> {
         ),
         Container(
           height: 55,
-          child: TextField(
+          child: TextFormField(
+            validator: (value){
+              if(value!.isNotEmpty){
+                return widget.errorMessage;
+              }
+            },
+            obscureText: widget.obscureText,
             onChanged: (text) {widget.onChanged.call(text);},
             decoration: InputDecoration(
                 hintText: '${widget.hintText}',

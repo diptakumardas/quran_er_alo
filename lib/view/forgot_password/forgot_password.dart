@@ -41,7 +41,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             SizedBox(
               height: 50,
             ),
-            CustomeTextField(title: "Your Registered Email", hintText: "Email", onChanged: () {},),
+            CustomeTextField(obscureText:false,title: "Your Registered Email", hintText: "Email", onChanged: () {}, errorMessage: "",),
             const SizedBox(
               height: 70,
             ),

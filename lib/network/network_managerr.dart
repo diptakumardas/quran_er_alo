@@ -10,8 +10,10 @@ import 'package:quran_er_alo/network/response_model/login_response.dart';
 import 'package:quran_er_alo/network/response_model/signup_response_model.dart';
 
 import '../app_constants/api_constants.dart';
-
+LoginResponse loginResponse = LoginResponse();
 class NetworkManager {
+  
+
   Future<SignUpResponse> signUp(SignUpRequest request) async {
     String url = AppConstant().baseUrl + AppConstant().signupUrl;
     final response = await http.post(
@@ -40,21 +42,24 @@ class NetworkManager {
     if (response.statusCode == 200) {
       print(response.body);
       final body = jsonDecode(response.body);
+      loginResponse = LoginResponse.fromJson(body);
       return LoginResponse.fromJson(body);
     }
     throw Exception('Error');
   }
 
   Future<ContentCarouselDataResponse> carouselContent() async {
+    print("carouselContent");
     String url = AppConstant().baseUrl + AppConstant().carouselContent;
     final response = await http.get(
       Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer d9c314304d434ed1698f3ad71ee7b55c94d28472'
+        'Authorization': 'Bearer ${loginResponse.encoded!.data!.accessToken}'
       },
     );
     //print(response.body);
     if (response.statusCode == 200) {
+
       //print("success");
       final body = jsonDecode(response.body);
       return ContentCarouselDataResponse.fromJson(body);
@@ -63,17 +68,19 @@ class NetworkManager {
   }
 
   Future<CourseContentResponse> courseContent() async {
+    print("courseContent");
     String url = AppConstant().baseUrl + AppConstant().courseContant;
     final response = await http.get(
       Uri.parse(url),
       headers: {
-        'Authorization': 'Bearer d9c314304d434ed1698f3ad71ee7b55c94d28472'
+        'Authorization': 'Bearer ${loginResponse.encoded!.data!.accessToken}'
       },
     );
     //print(response.body);
     if (response.statusCode == 200) {
       print("success2");
       final body = jsonDecode(response.body);
+
       return CourseContentResponse.fromJson(body);
     }
     throw Exception('Error');

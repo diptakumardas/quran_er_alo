@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:quran_er_alo/network/request_model/login_request.dart';
+import 'package:quran_er_alo/network/response_model/login_response.dart';
 import 'package:quran_er_alo/view/forgot_password/forgot_password.dart';
 import 'package:quran_er_alo/view/home_page.dart';
 import 'package:quran_er_alo/view/registration_page.dart';
@@ -22,8 +23,98 @@ class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
 
-  void login(String username,password){
-    NetworkManager().logIn(LoginRequest(email: username,password: password));
+
+  final formKey = GlobalKey<FormState>();
+
+
+  bool isLoading = false;
+
+  Future<void> loginn(String username, String password) async {
+    if (username.isEmpty || password.isEmpty) {
+      // Show Snackbar for empty fields
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Email and password cannot be empty.'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      LoginRequest request = LoginRequest(email: username, password: password);
+      final response = await NetworkManager().logIn(request);
+
+
+
+      // Show Snackbar on successful login
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Login complete!'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      print("Login Button pressed1");
+      // Handle success, navigate to the next screen or perform other actions.
+      // You can replace the below line with your desired navigation logic.
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+
+      );
+      print("Login Button pressed2");
+    } catch (error) {
+      // Handle error, show an error message or perform other actions.
+      print('Error during login: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Login failed. Please try again.'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  void login(String username,password,context){
+    NetworkManager().logIn(LoginRequest(email: username,password: password)).then((value)  {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Login complete!'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      print("Login Button pressed1");
+      // Handle success, navigate to the next screen or perform other actions.
+      // You can replace the below line with your desired navigation logic.
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+
+      );
+    });
+
+
   }
 
 
@@ -56,17 +147,32 @@ class _LogInScreenState extends State<LogInScreen> {
                   ],
                 ),
               ),
-              CustomeTextField(title: 'Email', hintText: "Email", onChanged: (text) {
-                _emailcontroller.text = text;
 
-              },),
 
-               const SizedBox(
-                height: 8,
+              Form(
+                key: formKey,
+                child:  Builder(
+                  builder: (context){
+                    return Column(
+                      children: [
+                        CustomeTextField(title: 'Email', hintText: "Email", obscureText:false,onChanged: (text) {
+                          _emailcontroller.text = text;
+
+                        }, errorMessage: "Email can't be empty",),
+
+                        const SizedBox(
+                          height: 8,
+                        ),
+
+                        CustomeTextField(title: "Password", hintText: "Password",obscureText: true, onChanged: (text) {
+                          _passwordcontroller.text = text;
+                        }, errorMessage:  "Password can't be empty", ),
+                      ],
+                    );
+                  },
+                ),
               ),
-              CustomeTextField(title: "Password", hintText: "Password", onChanged: (text) {
-                _passwordcontroller.text = text;
-              }, ),
+
                SizedBox(
                 height: 8,
               ),
@@ -84,9 +190,12 @@ class _LogInScreenState extends State<LogInScreen> {
                 height: 20,
               ),
                Center(
-                  child: CustomButton(name: "LOGIN",onClicked: (){
-                    login(_emailcontroller.text, _passwordcontroller.text);
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                  child:CustomButton(name: "LOGIN",onClicked: (){
+;                    if(!formKey.currentState!.validate()){
+                      login(_emailcontroller.text, _passwordcontroller.text,context);
+                    }
+
+                    //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
 
                   },)
               ),

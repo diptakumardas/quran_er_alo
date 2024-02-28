@@ -20,6 +20,8 @@ class CarouselCard extends StatefulWidget {
 
 class _CarouselCardState extends State<CarouselCard> {
   PageController pageController = PageController();
+  final ScrollController controller = ScrollController();
+
 
   NetworkManager networkManager = NetworkManager();
   int activeIndex = 0;
@@ -30,7 +32,7 @@ class _CarouselCardState extends State<CarouselCard> {
       future: networkManager.carouselContent(),
       builder: (BuildContext context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: SpinKitCircle(
               size: 50,
               color: Colors.blue,
@@ -60,7 +62,7 @@ class _CarouselCardState extends State<CarouselCard> {
                                   fit: BoxFit.cover)),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 30.0, left: 12),
+                          padding: const EdgeInsets.only(top: 30.0, left: 12),
                           child: SingleChildScrollView(
 
                             child: Column(
@@ -72,9 +74,9 @@ class _CarouselCardState extends State<CarouselCard> {
                                   decoration: BoxDecoration(
                                       color: Colors.blue,
                                       borderRadius: BorderRadius.circular(8)),
-                                  child: Center(
+                                  child: const Center(
                                       child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
+                                    padding: EdgeInsets.all(2.0),
                                     child: Text(
                                       "কুরআনের আলোতে স্বাগতম",
                                       style: TextStyle(
@@ -84,15 +86,15 @@ class _CarouselCardState extends State<CarouselCard> {
                                     ),
                                   )),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 Text(
                                   carouselItem?.title ?? "",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white, fontSize: 13),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 18,
                                 ),
                                 Container(
@@ -102,7 +104,7 @@ class _CarouselCardState extends State<CarouselCard> {
                                       color: Colors.transparent,
                                       borderRadius: BorderRadius.circular(5),
                                       border: Border.all(color: Colors.white)),
-                                  child: Center(
+                                  child: const Center(
                                       child: Text(
                                     "জয়েন করুন",
                                     style: TextStyle(color: Colors.white),
@@ -130,7 +132,7 @@ class _CarouselCardState extends State<CarouselCard> {
                       },
                       aspectRatio: 2.3,
                       autoPlay: true)),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Center(
                 child: SmoothPageIndicator(
                   controller: pageController,

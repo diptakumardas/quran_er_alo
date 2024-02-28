@@ -42,13 +42,15 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
               CustomeTextField(
                   title: "Password",
                   hintText: "Password",
-                  onChanged: () {},),
+                  obscureText: true,
+                  onChanged: () {}, errorMessage:  "",),
               const SizedBox(
                 height: 10,
               ),
               CustomeTextField(
+                obscureText: true,
                   title: "Confirm Password",
-                  hintText: "Confirm Password", onChanged: () {},),
+                  hintText: "Confirm Password", onChanged: () {},errorMessage:  ""),
               const SizedBox(
                 height: 50,
               ),
