@@ -21,7 +21,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Future<void> signup(String username, String password) async {
 
     if (username.isEmpty || password.isEmpty) {
-      // Show Snackbar for empty fields
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Email and password cannot be empty.'),
@@ -48,13 +47,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           duration: Duration(seconds: 3),
         ),
       );
-      // Handle success, navigate to the next screen or perform other actions.
-      // You can replace the below line with your desired navigation logic.
+
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LogInScreen()));
     } catch (error) {
-      // Handle error, show an error message or perform other actions.
-      //print('Error during registration: $error');
+     ;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Registration failed. Please try again.'),
@@ -68,9 +65,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
-  void signUp(String username, password) {
+ /* void signUp(String username, password) {
     NetworkManager().signUp(SignUpRequest(email: username, password: password));
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

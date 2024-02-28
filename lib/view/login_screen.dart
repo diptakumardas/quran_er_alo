@@ -27,58 +27,49 @@ class _LogInScreenState extends State<LogInScreen> {
 
   bool isLoading = false;
 
-  Future<void> loginn(String username, String password) async {
-    if (username.isEmpty || password.isEmpty) {
-      // Show Snackbar for empty fields
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Email and password cannot be empty.'),
-          duration: Duration(seconds: 3),
-        ),
-      );
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
-    });
-
-    try {
-      LoginRequest request = LoginRequest(email: username, password: password);
-      final response = await NetworkManager().logIn(request);
-
-      // Show Snackbar on successful login
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Login complete!'),
-          duration: Duration(seconds: 3),
-        ),
-      );
-      print("Login Button pressed1");
-      // Handle success, navigate to the next screen or perform other actions.
-      // You can replace the below line with your desired navigation logic.
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
-      print("Login Button pressed2");
-    } catch (error) {
-      // Handle error, show an error message or perform other actions.
-      print('Error during login: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Login failed. Please try again.'),
-          duration: Duration(seconds: 3),
-        ),
-      );
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
 
   void login(String username, password, context) {
+    NetworkManager()
+        .logIn(LoginRequest(email: username, password: password))
+        .then((value) {
+      if (value.encoded != null && value.encoded!.isError != null && value.encoded!.isError!) {
+        // Handle error
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(value.encoded!.error?.errMsg ?? 'An error occurred'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      } else {
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Login complete!'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      }
+    }).catchError((error) {
+      // Error during login
+      //print('Error during login: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Login Failed'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    });
+  }
+
+
+
+
+
+ /* void login(String username, password, context) {
     NetworkManager()
         .logIn(LoginRequest(email: username, password: password))
         .then((value) {
@@ -88,15 +79,17 @@ class _LogInScreenState extends State<LogInScreen> {
           duration: Duration(seconds: 3),
         ),
       );
-      print("Login Button pressed1");
       // Handle success, navigate to the next screen or perform other actions.
       // You can replace the below line with your desired navigation logic.
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
       );
-    });
-  }
+
+    }
+
+    );
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -182,16 +175,14 @@ class _LogInScreenState extends State<LogInScreen> {
               ),
               Center(
                   child: CustomButton(
-                name: "LOGIN",
-                onClicked: () {
-                  if (formKey.currentState!.validate()) {
-                    login(_emailcontroller.text, _passwordcontroller.text,
-                        context);
-                  }
-
-                  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
-                },
-              )),
+                    name: "LOGIN",
+                    onClicked: () {
+                      if (formKey.currentState!.validate()) {
+                        login(_emailcontroller.text, _passwordcontroller.text,
+                            context);
+                      }
+                    },
+                  )),
               const SizedBox(
                 height: 30,
               ),
@@ -212,7 +203,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       child: const Text(
                         "Registrstion",
                         style:
-                            TextStyle(fontSize: 20, color: Colors.blueAccent),
+                        TextStyle(fontSize: 20, color: Colors.blueAccent),
                       )),
                 ],
               ),
@@ -223,9 +214,9 @@ class _LogInScreenState extends State<LogInScreen> {
                 children: [
                   Expanded(
                       child: Divider(
-                    thickness: 0.5,
-                    color: Colors.grey,
-                  )),
+                        thickness: 0.5,
+                        color: Colors.grey,
+                      )),
                   Text(
                     ' or ',
                     style: TextStyle(fontSize: 18),
@@ -246,7 +237,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   color: const Color.fromRGBO(235, 241, 255, 1),
                 ),
                 child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
+
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -276,7 +267,6 @@ class _LogInScreenState extends State<LogInScreen> {
                   color: const Color.fromRGBO(235, 241, 255, 1),
                 ),
                 child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -304,17 +294,6 @@ class _LogInScreenState extends State<LogInScreen> {
       ),
     );
   }
-
-/*uture<void> loginUser(BuildContext context)async{
-    final String email = _emailcontroller.text;
-    final String password= _passwordcontroller.text;
-
-    final String apiUrl = "https://quraneralo.techanalyticaltd.com/auth/login";
-    final response = await http.post(Uri.parse(apiUrl),
-      body: {
-        'email': email,
-        'password': password,
-      },
-    );
-    */
 }
+
+

@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:quran_er_alo/view/home_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../network/network_managerr.dart';
@@ -117,7 +116,6 @@ class _CarouselCardState extends State<CarouselCard> {
                       ],
                     );
 
-                    /*CarouselCard();*/
                   },
                   options: CarouselOptions(
                     autoPlayCurve: Curves.fastOutSlowIn,
@@ -126,9 +124,6 @@ class _CarouselCardState extends State<CarouselCard> {
                         activeIndex = index;
                         pageController.jumpToPage(index);
 
-                        /* setState(() {
-                                  activeIndex = index;
-                                });*/
                       },
                       aspectRatio: 2.3,
                       autoPlay: true)),
@@ -138,8 +133,6 @@ class _CarouselCardState extends State<CarouselCard> {
                   controller: pageController,
                   count: corouselData!.length,
 
-                  /* activeIndex: activeIndex,
-                  count: 3,*/
                 ),
               )
             ],
