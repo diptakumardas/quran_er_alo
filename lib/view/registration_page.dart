@@ -65,9 +65,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
- /* void signUp(String username, password) {
+  void signUp(String username, password) {
     NetworkManager().signUp(SignUpRequest(email: username, password: password));
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
