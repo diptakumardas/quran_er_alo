@@ -23,9 +23,7 @@ class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
 
-
   final formKey = GlobalKey<FormState>();
-
 
   bool isLoading = false;
 
@@ -49,8 +47,6 @@ class _LogInScreenState extends State<LogInScreen> {
       LoginRequest request = LoginRequest(email: username, password: password);
       final response = await NetworkManager().logIn(request);
 
-
-
       // Show Snackbar on successful login
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -64,7 +60,6 @@ class _LogInScreenState extends State<LogInScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
-
       );
       print("Login Button pressed2");
     } catch (error) {
@@ -83,21 +78,10 @@ class _LogInScreenState extends State<LogInScreen> {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  void login(String username,password,context){
-    NetworkManager().logIn(LoginRequest(email: username,password: password)).then((value)  {
+  void login(String username, password, context) {
+    NetworkManager()
+        .logIn(LoginRequest(email: username, password: password))
+        .then((value) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Login complete!'),
@@ -110,13 +94,9 @@ class _LogInScreenState extends State<LogInScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
-
       );
     });
-
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +111,7 @@ class _LogInScreenState extends State<LogInScreen> {
               Container(
                 height: 180,
                 width: double.infinity,
-                child:  const Column(
+                child: const Column(
                   children: [
                     Text(
                       "Let's sign you in.",
@@ -147,39 +127,50 @@ class _LogInScreenState extends State<LogInScreen> {
                   ],
                 ),
               ),
-
-
               Form(
                 key: formKey,
-                child:  Builder(
-                  builder: (context){
+                child: Builder(
+                  builder: (context) {
                     return Column(
                       children: [
-                        CustomeTextField(title: 'Email', hintText: "Email", obscureText:false,onChanged: (text) {
-                          _emailcontroller.text = text;
-
-                        }, errorMessage: "Email can't be empty",),
-
+                        CustomeTextField(
+                          title: 'Email',
+                          hintText: "Email",
+                          obscureText: false,
+                          onChanged: (text) {
+                            _emailcontroller.text = text;
+                          },
+                          errorMessage: "Email can't be empty",
+                        ),
                         const SizedBox(
                           height: 8,
                         ),
-
-                        CustomeTextField(title: "Password", hintText: "Password",obscureText: true, onChanged: (text) {
-                          _passwordcontroller.text = text;
-                        }, errorMessage:  "Password can't be empty", ),
+                        CustomeTextField(
+                          title: "Password",
+                          hintText: "Password",
+                          obscureText: true,
+                          onChanged: (text) {
+                            _passwordcontroller.text = text;
+                          },
+                          errorMessage: "Password can't be empty",
+                        ),
                       ],
                     );
                   },
                 ),
               ),
-
-               SizedBox(
+              SizedBox(
                 height: 8,
               ),
-               Padding(
+              Padding(
                 padding: const EdgeInsets.only(left: 160.0),
                 child: GestureDetector(
-                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPassword()));},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ForgotPassword()));
+                  },
                   child: const Text(
                     "Lost your password?",
                     style: TextStyle(fontSize: 18, color: Colors.red),
@@ -189,16 +180,18 @@ class _LogInScreenState extends State<LogInScreen> {
               const SizedBox(
                 height: 20,
               ),
-               Center(
-                  child:CustomButton(name: "LOGIN",onClicked: (){
-;                    if(!formKey.currentState!.validate()){
-                      login(_emailcontroller.text, _passwordcontroller.text,context);
-                    }
+              Center(
+                  child: CustomButton(
+                name: "LOGIN",
+                onClicked: () {
+                  if (formKey.currentState!.validate()) {
+                    login(_emailcontroller.text, _passwordcontroller.text,
+                        context);
+                  }
 
-                    //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
-
-                  },)
-              ),
+                  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                },
+              )),
               const SizedBox(
                 height: 30,
               ),
@@ -211,7 +204,10 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                   GestureDetector(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationScreen()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegistrationScreen()));
                       },
                       child: const Text(
                         "Registrstion",
@@ -230,7 +226,10 @@ class _LogInScreenState extends State<LogInScreen> {
                     thickness: 0.5,
                     color: Colors.grey,
                   )),
-                  Text(' or ',style: TextStyle(fontSize: 18),),
+                  Text(
+                    ' or ',
+                    style: TextStyle(fontSize: 18),
+                  ),
                   Expanded(
                     child: Divider(
                       thickness: 0.5,
@@ -242,7 +241,6 @@ class _LogInScreenState extends State<LogInScreen> {
               Container(
                 height: 60,
                 width: 500,
-
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: const Color.fromRGBO(235, 241, 255, 1),
@@ -252,12 +250,18 @@ class _LogInScreenState extends State<LogInScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: Image.asset('images/google_logo.png',height: 40,),
+                      child: Image.asset(
+                        'images/google_logo.png',
+                        height: 40,
+                      ),
                     ),
                     const SizedBox(
                       width: 60,
                     ),
-                    const Text("Continue with Google",style: TextStyle(fontSize: 18,color: Colors.grey),)
+                    const Text(
+                      "Continue with Google",
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                    )
                   ],
                 ),
               ),
@@ -267,7 +271,6 @@ class _LogInScreenState extends State<LogInScreen> {
               Container(
                 height: 60,
                 width: 500,
-
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: const Color.fromRGBO(235, 241, 255, 1),
@@ -277,19 +280,24 @@ class _LogInScreenState extends State<LogInScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: Image.asset('images/apple_logo.png',height: 40,),
+                      child: Image.asset(
+                        'images/apple_logo.png',
+                        height: 40,
+                      ),
                     ),
                     const SizedBox(
                       width: 60,
                     ),
-                    const Text("Continue with Apple",style: TextStyle(fontSize: 18,color: Colors.grey),)
+                    const Text(
+                      "Continue with Apple",
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                    )
                   ],
                 ),
               ),
               const SizedBox(
                 height: 50,
               ),
-
             ],
           ),
         ),
@@ -297,9 +305,7 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
-
-
-  /*uture<void> loginUser(BuildContext context)async{
+/*uture<void> loginUser(BuildContext context)async{
     final String email = _emailcontroller.text;
     final String password= _passwordcontroller.text;
 
@@ -311,10 +317,4 @@ class _LogInScreenState extends State<LogInScreen> {
       },
     );
     */
-
-
-
-
 }
-
-

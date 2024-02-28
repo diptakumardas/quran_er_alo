@@ -28,9 +28,10 @@ class _CustomeTextFieldState extends State<CustomeTextField> {
           height: 55,
           child: TextFormField(
             validator: (value){
-              if(value!.isNotEmpty){
+              if(value!.isEmpty){
                 return widget.errorMessage;
               }
+              return null;
             },
             obscureText: widget.obscureText,
             onChanged: (text) {widget.onChanged.call(text);},
