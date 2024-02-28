@@ -46,12 +46,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               height: 70,
             ),
             Center(
-                child: GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpScreen()));
-                  },
-                  child: CustomButton(name: "SEND OTP")
-                )),
+                child: CustomButton(name: "SEND OTP",onClicked: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpScreen()));
+                },)),
           ],
         ),
       ),

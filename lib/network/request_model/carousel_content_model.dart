@@ -6,7 +6,7 @@ class ContentCarouselDataResponse {
 
   ContentCarouselDataResponse.fromJson(Map<String, dynamic> json) {
     encoded =
-    json['encoded'] != null ? new Encoded.fromJson(json['encoded']) : null;
+    json['encoded'] != null ? Encoded.fromJson(json['encoded']) : null;
     jrn = json['jrn'];
   }
 

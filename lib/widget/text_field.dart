@@ -21,22 +21,25 @@ class _CustomeTextFieldState extends State<CustomeTextField> {
         SizedBox(
           height: 8,
         ),
-        TextField(
-          onChanged: (text) {widget.onChanged.call(text);},
-          decoration: InputDecoration(
-              hintText: '${widget.hintText}',
-              hintStyle: const TextStyle(color: Colors.grey),
-              filled: true,
-              fillColor: const Color.fromRGBO(235, 241, 255, 1),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color.fromRGBO(235, 241, 255, 1)),
-                borderRadius: BorderRadius.circular(12),
+        Container(
+          height: 55,
+          child: TextField(
+            onChanged: (text) {widget.onChanged.call(text);},
+            decoration: InputDecoration(
+                hintText: '${widget.hintText}',
+                hintStyle: const TextStyle(color: Colors.grey),
+                filled: true,
+                fillColor: const Color.fromRGBO(235, 241, 255, 1),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color.fromRGBO(235, 241, 255, 1)),
+                  borderRadius: BorderRadius.circular(12),
 
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color.fromRGBO(235, 241, 255, 1)),
-                borderRadius: BorderRadius.circular(12),
-              )
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color.fromRGBO(235, 241, 255, 1)),
+                  borderRadius: BorderRadius.circular(12),
+                )
+            ),
           ),
         ),
       ]

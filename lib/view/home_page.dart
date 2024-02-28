@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10.0, top: 50),
+              padding: const EdgeInsets.only(left: 10.0, top: 40),
               child: Row(
                 children: [
                   Container(
@@ -46,27 +46,21 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(fontSize: 20),
                   ),
                   const SizedBox(
-                    width: 120,
+                    width: 90,
                   ),
                   const Icon(
                     Icons.notifications_none,
-                    size: 28,
+                    size: 25,
                   )
                 ],
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             const CarouselCard(),
 
-            const SizedBox(height: 20),
-            Center(
-                child: AnimatedSmoothIndicator(
-                  activeIndex: activeIndex,
-                  count: 3,
-                ),
-              ),
+
 
             const SizedBox(
               height: 40,
@@ -102,10 +96,11 @@ class _HomePageState extends State<HomePage> {
               height: 10,
             ),
             //////////coursecard
+            CourseCard()
 
 
 
-            SizedBox(
+            /*SizedBox(
               height: 230,
               width: double.infinity,
               child: ListView.builder(
@@ -163,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
 
-            ),
+            ),*/
 
 
           ],

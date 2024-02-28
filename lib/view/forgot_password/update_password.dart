@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:quran_er_alo/view/home_page.dart';
 import 'package:quran_er_alo/view/login_screen.dart';
 import 'package:quran_er_alo/widget/button.dart';
@@ -52,14 +53,9 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
                 height: 50,
               ),
               Center(
-                  child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LogInScreen()));
-                      },
-                      child: const CustomButton(name: "UPDATE PASSWORD"))),
+                  child:  CustomButton(name: "UPDATE PASSWORD",onClicked: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>LogInScreen()));
+                  },)),
             ]),
       ),
     );

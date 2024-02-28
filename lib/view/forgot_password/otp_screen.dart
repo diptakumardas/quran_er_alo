@@ -71,12 +71,9 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
 
             Center(
-                child: GestureDetector(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const UpdatePasswordScreen()));
-                  },
-                  child: CustomButton(name: 'SUBMIT')
-                )
+                child: CustomButton(name: 'SUBMIT',onClicked: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdatePasswordScreen()));
+                },)
             ),
 
 

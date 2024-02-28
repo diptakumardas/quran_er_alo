@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 class CourseContentResponse {
   Encoded? encoded;
   int? jrn;
@@ -5,9 +7,13 @@ class CourseContentResponse {
   CourseContentResponse({this.encoded, this.jrn});
 
   CourseContentResponse.fromJson(Map<String, dynamic> json) {
-    encoded =
-    json['encoded'] != null ? new Encoded.fromJson(json['encoded']) : null;
-    jrn = json['jrn'];
+    try{
+      encoded =
+      json['encoded'] != null ? Encoded.fromJson(json['encoded']) : null;
+      jrn = json['jrn'];
+    }catch(error,strackTrace){
+      log(error.toString(),stackTrace: strackTrace);
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -96,7 +102,7 @@ class AllCourseData {
     name = json['name'];
     thumbnail = json['thumbnail'];
     price = json['price'];
-    rating = json['rating'];
+    rating = json['rating'].toDouble();
     id = json['id'];
   }
 

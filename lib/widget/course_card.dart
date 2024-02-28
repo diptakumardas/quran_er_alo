@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:quran_er_alo/network/network_managerr.dart';
 import 'package:quran_er_alo/network/request_model/course_content_model.dart';
 import 'package:quran_er_alo/widget/rating.dart';
 
-import '../network/request_model/carousel_content_model.dart';
 
 class CourseCard extends StatefulWidget {
   const CourseCard({super.key});
@@ -19,8 +20,8 @@ class _CourseCardState extends State<CourseCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 230,
-        width: MediaQuery.sizeOf(context).width/2,
+        height: MediaQuery.of(context).size.height*.3,
+        width: MediaQuery.sizeOf(context).width,
         child: FutureBuilder<CourseContentResponse>(
             future: networkManager.courseContent(),
             builder: (BuildContext context,  snapshot) {
@@ -38,6 +39,10 @@ class _CourseCardState extends State<CourseCard> {
               } else {
                 final List<AllCourseData>? courseData =
                     snapshot.data?.encoded?.data?.allCourseData;
+
+
+
+
                 return ListView.builder(
                     itemCount: courseData!
                         .length, // Set the itemCount to the number of CourseCard widgets you want
@@ -51,12 +56,13 @@ class _CourseCardState extends State<CourseCard> {
                             borderRadius: BorderRadius.circular(12),
                             color: Colors.lightBlueAccent.shade100,
                           ),
-                          height: 230,
-                          width: 200,
+                          height: MediaQuery.sizeOf(context).height*1,
+                          width: MediaQuery.sizeOf(context).width*.52,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset(
+                              Image.network(
+                                width: 195,
                                 courseItem ?. thumbnail??"",
                                 filterQuality: FilterQuality.high,
                                 fit: BoxFit.cover,
@@ -80,13 +86,13 @@ class _CourseCardState extends State<CourseCard> {
                                 ],
                               ),
                               const SizedBox(
-                                height: 8,
+                                height: 2,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 5.0),
                                 child: Text(
                                   courseItem?.name ?? "",
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(fontSize: 18,),maxLines: 2,
                                 ),
                               ),
                             ],
