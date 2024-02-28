@@ -57,7 +57,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Login Failed'),
+          content: Text('${error.toString().split(':').last}'),
           duration: Duration(seconds: 3),
         ),
       );

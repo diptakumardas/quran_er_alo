@@ -45,7 +45,9 @@ class NetworkManager {
       loginResponse = LoginResponse.fromJson(body);
       return LoginResponse.fromJson(body);
     }
-    throw Exception('Error');
+    else{
+      final body = jsonDecode(response.body);
+      throw Exception(body["encoded"]["error"]["errMsg"]);}
   }
 
   Future<ContentCarouselDataResponse> carouselContent() async {
