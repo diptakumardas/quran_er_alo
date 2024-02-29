@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:quran_er_alo/network/network_managerr.dart';
 import 'package:quran_er_alo/widget/rating.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        controller: controller,
+        //controller: controller,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,8 +48,8 @@ class _HomePageState extends State<HomePage> {
                     "Md Kmarul Hasan",
                     style: TextStyle(fontSize: 20),
                   ),
-                  const SizedBox(
-                    width: 90,
+                   SizedBox(
+                    width: MediaQuery.sizeOf(context).width*.3,
                   ),
                   const Icon(
                     Icons.notifications_none,
